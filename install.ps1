@@ -26,7 +26,7 @@ Set-Content -Path "$shim\shadowkit.bat" -Value "@echo off`r`npython `"$dir\shado
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($userPath -notlike "*$shim*") {
     [Environment]::SetEnvironmentVariable("Path", "$userPath;$shim", "User")
-    Write-Host "[i] shima 'shadowkit' anadida al PATH (abre una terminal nueva para usarla)" -ForegroundColor Yellow
+    Write-Host "[i] comando 'shadowkit' anadido al PATH (abre una terminal nueva para usarlo)" -ForegroundColor Yellow
 }
 
 Write-Host ""
