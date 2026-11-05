@@ -1,0 +1,14 @@
+# Caché de Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Artefactos locales
+dist/
+build/
+*.egg-info/
+
+# Omnia/AI assistants
+.claude/
+.aider*

@@ -1,0 +1,40 @@
+name: Bug report
+description: Reporta un fallo en ShadowKit (carga, búsqueda, instalación...)
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Gracias por reportar. Completa lo básico para reproducir el error."
+  - type: input
+    id: version_os
+    attributes:
+      label: Sistema operativo y Python
+      description: "Ej: Windows 11 23H2 · Python 3.12 · rich 15.0"
+    validations:
+      required: true
+  - type: textarea
+    id: pasos
+    attributes:
+      label: Pasos para reproducir
+      description: "Qué pantalla, qué herramienta, qué comando exacto..."
+      placeholder: |
+        1. shadowkit.bat
+        2. opción 1 (buscador)
+        3. escribir "nmap" y enter
+    validations:
+      required: true
+  - type: textarea
+    id: esperado
+    attributes:
+      label: Qué esperabas
+      description: "Comportamiento correcto esperado."
+    validations:
+      required: true
+  - type: textarea
+    id: traceback
+    attributes:
+      label: Salida / traceback completo
+      render: shell
+    validations:
+      required: false

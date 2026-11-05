@@ -1,0 +1,30 @@
+name: Feature request
+description: Propón una nueva herramienta o una mejora de la interfaz
+title: "[FEATURE] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Antes de crear, revisa si ya existe un issue similar."
+  - type: input
+    id: herramienta
+    attributes:
+      label: Herramienta o mejora propuesta
+      description: "Nombre de la herramienta o descripción de la mejora"
+    validations:
+      required: true
+  - type: textarea
+    id: justificacion
+    attributes:
+      label: Justificación
+      description: "Por qué sería útil y en qué fase del pentest se usaría"
+    validations:
+      required: true
+  - type: textarea
+    id: instalacion
+    attributes:
+      label: Cómo se instalaría
+      description: "winget / choco / pip / git clone — comando exacto"
+      placeholder: "winget install --id Example.Tool -e"
+    validations:
+      required: false
