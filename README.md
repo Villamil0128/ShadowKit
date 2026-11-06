@@ -63,6 +63,8 @@ shadowkit.bat
 python shadowkit.py
 ```
 
+> **Guía detallada de Linux:** [GUIDE_LINUX.md](GUIDE_LINUX.md) — instalación paso a paso, solución de problemas (PEP 668, venv, PATH) y comandos de herramientas.
+
 ## Uso
 
 | Comando | Descripción |
