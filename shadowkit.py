@@ -27,7 +27,7 @@ console = Console(legacy_windows=False)
 TOOLS_DIR = Path.home() / "pentest-tools"
 
 APP_NAME = "SHADOWKIT"
-VERSION = "2.1"
+VERSION = "2.2"
 
 ACCENT = "bold cyan"
 DIM = "bright_black"
@@ -189,11 +189,70 @@ def is_installed(tool):
     if candidate.exists():
         return True
     exe = check.split("\\")[0].split("/")[0]
+    if (TOOLS_DIR / ".venv" / _venv_subdir() / exe).exists():
+        return True
     return shutil.which(exe) is not None
 
 
 def install_commands(tool):
     return tool.get("install", {}).get(platform_key(), [])
+
+
+def _venv_subdir():
+    return "Scripts" if os.name == "nt" else "bin"
+
+
+def venv_pip():
+    exe = "pip.exe" if os.name == "nt" else "pip"
+    return TOOLS_DIR / ".venv" / _venv_subdir() / exe
+
+
+def venv_python():
+    exe = "python.exe" if os.name == "nt" else "python3"
+    return TOOLS_DIR / ".venv" / _venv_subdir() / exe
+
+
+def ensure_venv():
+    if venv_pip().exists():
+        return True
+    python = shutil.which("python3") or sys.executable
+    console.print(f"\n  [cyan]›[/] [magenta]{python} -m venv \"{TOOLS_DIR / '.venv'}\"[/magenta]\n")
+    subprocess.run(f'"{python}" -m venv "{TOOLS_DIR / ".venv"}"', shell=True)
+    return venv_pip().exists()
+
+
+def run_install_step(command):
+    proc = subprocess.run(command, shell=True, capture_output=True, text=True)
+    sys.stdout.write(proc.stdout or "")
+    sys.stderr.write(proc.stderr or "")
+    if proc.returncode == 0 or "externally-managed" not in (proc.stdout + proc.stderr):
+        return proc.returncode
+    console.print("\n  [yellow]! pip del sistema bloqueado (PEP 668): probando pipx o venv propio…[/yellow]")
+    args = command.split(None, 2)[2] if command.lower().startswith(("pip ", "pip3 ")) else None
+    if args is None:
+        return proc.returncode
+    if shutil.which("pipx") and not args.startswith(("-r ", "'-r ", '"-r ')):
+        alt = f'pipx install {args}'
+        console.print(f"\n  [cyan]›[/] [magenta]{alt}[/magenta]\n")
+        code = subprocess.run(alt, shell=True).returncode
+        if code == 0:
+            return 0
+    if ensure_venv():
+        alt = f'"{venv_pip()}" install {args}'
+        console.print(f"\n  [cyan]›[/] [magenta]{alt}[/magenta]\n")
+        if subprocess.run(alt, shell=True).returncode == 0:
+            return 0
+    alt = f'"{shutil.which("pip3") or "pip3"}" install --break-system-packages {args}'
+    console.print(f"\n  [cyan]›[/] [magenta]{alt} (último recurso)[/magenta]\n")
+    return subprocess.run(alt, shell=True).returncode
+
+
+def shell_env():
+    env = os.environ.copy()
+    venv_bin = TOOLS_DIR / ".venv" / _venv_subdir()
+    if venv_bin.exists():
+        env["PATH"] = str(venv_bin) + os.pathsep + env.get("PATH", "")
+    return env
 
 
 def status_dot(tool):
@@ -342,7 +401,10 @@ def resolve_command(tool, args=""):
     base = tool.get("base")
     if not base:
         return None
-    command = base.replace("{py}", sys.executable)
+    py = sys.executable
+    if os.name != "nt" and venv_python().exists():
+        py = str(venv_python())
+    command = base.replace("{py}", py)
     command = command.replace("{dir}", tools_dir_str())
     if args:
         command = f"{command} {args}"
@@ -365,7 +427,7 @@ def run_tool(tool):
         console.print("\n")
         cwd = TOOLS_DIR / tool["cwd"] if tool.get("cwd") else None
         try:
-            subprocess.run(command, shell=True, cwd=cwd)
+            subprocess.run(command, shell=True, cwd=cwd, env=shell_env())
         except Exception as exc:
             console.print(f"  [red]error: {exc}[/red]")
     pause()
@@ -388,7 +450,7 @@ def install_tool(tool):
         prepared = command.replace("{dir}", tools_dir_str())
         console.print(f"\n  [cyan]›[/] [magenta]{prepared}[/magenta]\n")
         try:
-            subprocess.run(prepared, shell=True)
+            run_install_step(prepared)
         except Exception as exc:
             console.print(f"  [red]fallo: {exc}[/red]")
         if is_installed(tool):
@@ -560,7 +622,7 @@ def cli_install(names):
             console.print("  [yellow]sin instalador automático en esta plataforma.[/yellow]")
             continue
         for command in cmds:
-            subprocess.run(command.replace("{dir}", tools_dir_str()), shell=True)
+            run_install_step(command.replace("{dir}", tools_dir_str()))
             if is_installed(tool):
                 break
         console.print("  [green]✔ lista[/]" if is_installed(tool) else "  [red]✘ no verificada[/]")

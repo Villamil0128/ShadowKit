@@ -11,7 +11,7 @@
 
 `buscador en vivo` · `instalador automático` · `55 herramientas` · `windows / linux`
 
-![shadowkit](https://img.shields.io/badge/SHADOWKIT-v2.1-black?style=flat-square)
+![shadowkit](https://img.shields.io/badge/SHADOWKIT-v2.2-black?style=flat-square)
 ![python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)
 ![deps](https://img.shields.io/badge/deps-solo%20rich-black?style=flat-square)
 ![platform](https://img.shields.io/badge/plataforma-windows%20%2F%20linux-informational?style=flat-square)
@@ -28,7 +28,7 @@
 Un launcher de terminal que une en **una interfaz** las herramientas clásicas del pentesting: buscar, instalar, ejecutar y documentar, sin memorizar rutas ni googlear comandos.
 
 - **◈ live search** — escribe y filtra instantáneo por nombre, categoría o descripción
-- **◈ auto-instalador** — si la tool no está, un `i` la instala vía `winget` / `choco` / `pip` / `apt` / `git clone`
+- **◈ auto-instalador** — si la tool no está, un `i` la instala vía `winget` / `choco` / `pip` / `pipx` / `apt` / `git clone`, con fallback automático a venv en distros con PEP 668
 - **◈ dossier de cada tool** — qué hace, cuándo usarla, ejemplos reales
 - **◈ estado del arsenal** — checklist instantáneo de qué te falta
 - **◈ cero fricción** — un script de Python, única dependencia: `rich`
@@ -63,7 +63,7 @@ python shadowkit.py        # windows: shadowkit.bat
 ```
 ┌──[ shadowkit ]──────────────────────────────────────┐
 │                                                     │
-│  ● instaladas 12/55          ◆ v2.1                 │
+│  ● instaladas 12/55          ◆ v2.2                 │
 │                                                     │
 │  › search█                                          │
 │                                                     │

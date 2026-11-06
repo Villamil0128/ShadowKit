@@ -84,7 +84,7 @@ python3 ~/shadowkit/shadowkit.py
 | Comando | Qué hace |
 |---|---|
 | `shadowkit` | TUI interactiva completa |
-| `shadowkit --list` | Lista las 46 herramientas |
+| `shadowkit --list` | Lista las 55 herramientas |
 | `shadowkit --check` | Qué está instalado y qué falta |
 | `shadowkit --install nmap` | Instalar sin pasar por el menú |
 | `shadowkit -h` | Ayuda |
@@ -137,6 +137,18 @@ git clone https://github.com/danielmiessler/SecLists.git ~/shadowkit/SecLists
 
 (la app los instala igual: usa `i` en la ficha de cada herramienta)
 
+Si quieres instalar las nuevas de **OSINT / filtraciones** a mano:
+
+```bash
+# OSINT / Filtraciones
+pip install maigret blackbird holehe h8mail ghunt snscrape
+git clone https://github.com/opsdisk/metagoofil.git ~/shadowkit/metagoofil
+pip install -r ~/shadowkit/metagoofil/requirements.txt
+git clone https://github.com/obheda12/GitDorker.git ~/shadowkit/GitDorker
+pip install -r ~/shadowkit/GitDorker/requirements.txt
+go install github.com/trufflesecurity/trufflehog@latest
+```
+
 ## 7. Actualizar
 
 ```bash
@@ -162,7 +174,7 @@ sed -i '/shadowkit/d' ~/.bashrc    # quita la línea del PATH si existe
 
 | Problema | Solución |
 |---|---|
-| `error: externally-managed-environment` | Tu distro protege el pip del sistema (PEP 668). El instalador crea un venv automáticamente; o hazlo a mano con `python3 -m venv .venv` |
+| `error: externally-managed-environment` | Tu distro protege el pip del sistema (PEP 668). Desde v2.2: la app lo detecta y reintenta con `pipx` o con su propio venv (`~/pentest-tools/.venv`) automáticamente. También puedes hacerlo a mano: `python3 -m venv ~/pentest-tools/.venv` e instalar con `~/pentest-tools/.venv/bin/pip install X` |
 | `venv: command not found` / módulo `ensurepip` faltante | `sudo apt-get install -y python3-venv python3-full` |
 | `shadowkit: command not found` | Abre una terminal nueva o `exec bash`; verifica `ls ~/.local/bin/shadowkit` y que `~/.local/bin` esté en tu `PATH` |
 | Caracteres raros en la TUI | La terminal necesita UTF-8: `export LANG=C.UTF-8` o configúralo en las preferencias de tu terminal |
