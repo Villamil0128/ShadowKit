@@ -87,9 +87,19 @@ def poll_key(timeout_ms=120):
         try:
             tty.setraw(fd)
             ready, _, _ = select.select([sys.stdin], [], [], timeout_ms / 1000.0)
-            if ready:
-                return os.read(fd, 1).decode("utf-8", errors="ignore")
-            return ""
+            if not ready:
+                return ""
+            data = os.read(fd, 1).decode("utf-8", errors="ignore")
+            if data == "\x1b":
+                while True:
+                    more, _, _ = select.select([sys.stdin], [], [], 0.05)
+                    if not more:
+                        break
+                    chunk = os.read(fd, 1).decode("utf-8", errors="ignore")
+                    data += chunk
+                    if chunk.isalpha() or chunk == "~":
+                        break
+            return data
         finally:
             termios.tcsetattr(fd, termios.TCSADRAIN, old)
 
