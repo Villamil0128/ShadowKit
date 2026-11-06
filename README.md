@@ -1,124 +1,163 @@
 <div align="center">
 
+```
+█▀█ █ █▀█ █▀▀ █ █ ▄ █ █▄ █
+█▄▀ █ ▀▄▀ █▄▄ █▄▄ ▀ ▄ ▀ █ ▀█
+```
+
 # ◆ SHADOWKIT
 
-**Arsenal de pentesting en tu terminal — un solo script, cero configuración**
+**arsenal de pentesting en tu terminal**
 
-*Buscador en vivo · instalador automático · 46 herramientas · Windows / Linux*
+`buscador en vivo` · `instalador automático` · `46 herramientas` · `windows / linux`
+
+![python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&logo=python&logoColor=white)
+![deps](https://img.shields.io/badge/deps-solo%20rich-black?style=flat-square)
+![platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-informational?style=flat-square)
+![license](https://img.shields.io/badge/license-MIT-red?style=flat-square)
 
 </div>
 
 ---
 
-## ¿Qué es?
+> "el escáner no encuentra lo que no sabe buscar. shadowkit te organiza lo que sí existe."
 
-**ShadowKit** es un launcher de terminal que reúne las herramientas esenciales de ciberseguridad ofensiva (uso **legal** y con autorización) en una sola interfaz interactiva:
+## Qué es
 
-- **Buscador en vivo** — escribe y filtra al instante por nombre, categoría o descripción (fuzzy search con cursor pulsante).
-- **Instalador automático** — si algo no está instalado, un `i` lo instala vía `winget`, `choco`, `pip` o `git clone`.
-- **Fichas completas** — cada herramienta trae *qué hace*, *cuándo usarla*, *ejemplos reales copy-paste* y su comando de instalación.
-- **Ejecución con argumentos** — lanza nmap, sqlmap o hydra sin salir de ShadowKit y sin memorizar rutas.
-- **Estado del arsenal** — mira de un vistazo qué tienes y qué te falta.
+Un launcher de terminal que une en **una interfaz** las herramientas clásicas del pentesting: buscar, instalar, ejecutar y documentar, sin memorizar rutas ni googlear comandos.
 
-No hay intermediarios: es un script de Python puro con una única dependencia (`rich`).
-
-## Pantallas
-
-| Pantalla | Contenido |
-|---|---|
-| Menú principal | Acceso directo a búsqueda, categorías, estado y catálogo |
-| Live search | Filtrado en vivo con `↑↓` y `enter` |
-| Ficha de herramienta | Descripción, capacidades, cuándo usarla, ejemplos, instalación |
-| Estado de instalaciones | Checklist por categoría de tu arsenal |
+- **◈ live search** — escribe y filtra instantáneo por nombre, categoría o descripción
+- **◈ auto-instalador** — si la tool no está, un `i` la instala vía `winget` / `choco` / `pip` / `apt` / `git clone`
+- **◈ dossier de cada tool** — qué hace, cuándo usarla, ejemplos reales
+- **◈ estado del arsenal** — checklist instantáneo de qué te falta
+- **◈ cero fricción** — un script de Python, única dependencia: `rich`
 
 ## Instalación
+
+### Windows (PowerShell)
+
+```powershell
+irm https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.ps1 | iex
+```
+
+### Linux / macOS / WSL
+
+```bash
+bash <(curl -sSL "https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.sh?v=$(date +%s)")
+```
+
+### Manual
 
 ```bash
 git clone https://github.com/Villamil0128/ShadowKit.git
 cd ShadowKit
 pip install -r requirements.txt
+python shadowkit.py        # windows: shadowkit.bat
 ```
 
-### Instalación de un comando
+> Guía completa de Linux (venv, PEP 668, troubleshooting): [`GUIDE_LINUX.md`](GUIDE_LINUX.md)
 
-**Windows (PowerShell):**
-```powershell
-irm https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.ps1 | iex
+## En acción
+
+```
+┌──[ shadowkit ]──────────────────────────────────────┐
+│                                                     │
+│  ● instaladas 12/46          ◆ v2.1                 │
+│                                                     │
+│  › search█                                          │
+│                                                     │
+│  nmap              escaneo de red          ●        │
+│  netexec           post-explotación        ○        │
+│  nuclei            web / api               ○        │
+│  ...
+│                                                     │
+│  ↑↓ navegar · enter abrir · esc limpiar             │
+└─────────────────────────────────────────────────────┘
 ```
 
-**Linux / macOS / WSL:**
-```bash
-bash <(curl -sSL "https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.sh?v=$(date +%s)")
+Cada ficha te da el contexto completo de la herramienta:
+
+```
+  NMAP  · escaneo de red ·  ● instalada
+
+  CAPACIDADES
+  · descubrimiento de hosts, puertos y versiones (-sV/-O)
+  · +600 scripts NSE para auditar servicios sin salir de nmap
+
+  CUÁNDO USARLA
+  siempre el primer paso: saber qué expone el objetivo.
+
+  EJEMPLOS
+  $ nmap -sV -A 10.10.10.5
+  $ nmap --script vuln 192.168.1.0/24
 ```
 
-> El parámetro `?v=$(date +%s)` evita el caché de CDN de GitHub. Si recibes el error `externally-managed-environment`, el instalador crea un venv automáticamente en `~/shadowkit/.venv` (Debian/Parrot/Kali/Ubuntu).
+## El flujo
 
-### Arranque
-
-```bash
-# Windows
-shadowkit.bat
-
-# Linux / macOS / WSL
-python shadowkit.py
+```
+  recon ───→ escaneo ───→ explotación ───→ post
+  amass       nmap         msfvenom       netexec
+  subfinder   masscan      searchsploit   responder
+  sherlock    nuclei       sqlmap         john/hashcat
 ```
 
-> **Guía detallada de Linux:** [GUIDE_LINUX.md](GUIDE_LINUX.md) — instalación paso a paso, solución de problemas (PEP 668, venv, PATH) y comandos de herramientas.
+## Arsenal (46 tools)
 
-## Uso
-
-| Comando | Descripción |
+| Categoría | Herramientas |
 |---|---|
-| `python shadowkit.py` | TUI interactiva completa |
-| `python shadowkit.py --list` | Catálogo de las 46 herramientas |
-| `python shadowkit.py --check` | Qué tienes instalado y qué falta |
-| `python shadowkit.py --install nmap sqlmap` | Instala sin pasar por el menú |
-| `python shadowkit.py -h` | Ayuda |
+| escaneo de red | nmap · masscan · ncat |
+| reconocimiento | amass · subfinder · sherlock · theHarvester · enum4linux-ng · shodan · whois |
+| web / apis | sqlmap · nikto · dirsearch · gobuster · ffuf · nuclei · whatweb · wafw00f · wpscan · testssl.sh · wfuzz · burpsuite |
+| explotación | metasploit · msfvenom · searchsploit |
+| post-explotación | netexec · smbmap · responder · proxychains |
+| contraseñas | hydra · john · hashcat · hashid · cewl |
+| wifi | aircrack-ng · wifite |
+| sniffing / mitm | wireshark · tcpdump · bettercap · macchanger · ettercap |
+| forense / estego | volatility3 · binwalk · exiftool · steghide |
+| utilidades | SecLists |
 
-Dentro de la TUI:
+¿falta la tuya? [abre un feature request](https://github.com/Villamil0128/ShadowKit/issues/new?template=feature_request.yml) o añádela en dos minutos ([guía](CONTRIBUTING.md#-aadir-una-herramienta-nueva)).
 
-| Tecla | Acción |
-|---|---|
-| `1` | Búsqueda en vivo |
-| `2` | Explorar por categorías |
-| `3` | Estado de instalaciones |
-| `4` | Arsenal completo |
-| `e` | Ejecutar herramienta seleccionada |
-| `i` | Instalar herramienta seleccionada |
-| `b` / `esc` | Volver atrás |
-| `ctrl+c` | Salir |
+## Comandos rápidos
 
-## Qué herramientas incluye
+```bash
+python shadowkit.py        # TUI completa
+python shadowkit.py -l     # catálogo sin TUI
+python shadowkit.py -c     # qué falta instalar
+python shadowkit.py -i nmap sqlmap   # instala directo
+```
 
-**Escaneo de red** · nmap, masscan, ncat
-**Reconocimiento** · amass, subfinder, sherlock, theHarvester, enum4linux-ng, shodan, whois
-**Web / APIs** · sqlmap, nikto, dirsearch, gobuster, ffuf, nuclei, whatweb, wafw00f, wpscan, testssl.sh, wfuzz, burpsuite
-**Explotación** · metasploit, msfvenom, searchsploit
-**Post-explotación** · netexec, smbmap, responder, proxychains
-**Contraseñas** · hydra, john, hashcat, hashid, cewl
-**WiFi** · aircrack-ng, wifite
-**Sniffing / MITM** · wireshark, tcpdump, bettercap, macchanger, ettercap
-**Forense / Estego** · volatility3, binwalk, exiftool, steghide
-**Utilidades** · SecLists
+## Roadmap
 
-> ¿Falta tu favorita? [Abre un feature request](https://github.com/Villamil0128/ShadowKit/issues/new?template=feature_request.md) o añádela tú mismo en `tools_registry.py`.
+- [ ] configuración de tema (`~/.shadowkit.json`) — issue #4
+- [ ] modo WSL para tools solo-linux — issue #3
+- [ ] httpx y más del pipeline projectdiscovery — issue #2
+- [ ] exportar hallazgos a markdown
 
 ## Estructura
 
 ```
 ShadowKit/
-├── shadowkit.py        Interfaz, animaciones, instalador y ejecutor
-├── shadowkit.bat       Lanzador Windows
-├── tools_registry.py   Catálogo: 46 herramientas con fichas completas
-└── requirements.txt    Solo necesita rich
+├── shadowkit.py         lado TUI: animaciones, búsqueda, instalador, ejecutor
+├── tools_registry.py    datos: 46 tools con dossier completo
+├── shadowkit.bat        arranque directo windows
+├── install.ps1          instalador windows
+├── install.sh           instalador linux
+└── requirements.txt     rich
 ```
 
-Añadir una herramienta nueva es copy-paste: agrega un bloque a `TOOLS` en `tools_registry.py` y aparece en el buscador automáticamente.
+## ⚠ Código de conducta
 
-## Aviso legal
-
-ShadowKit es una utilidad de organización e instalación de herramientas de ciberseguridad ya existentes y open source. Su finalidad es única y exclusivamente la prueba de seguridad ética con la **autorización expresa** de los propietarios de los sistemas analizados. El autor no se hace responsable del uso ilícito o sin autorización.
+**solo en sistemas propios o con autorización expresa.** ShadowKit no crea ataques: organiza herramientas open source existentes. Tu uso es tu responsabilidad legal.
 
 ## Licencia
 
-MIT — ver [LICENSE](LICENSE).
+[MIT](LICENSE)
+
+<div align="center">
+
+*stay in the shadows, pentest with permission*
+
+◆ hecho en la terminal
+
+</div>

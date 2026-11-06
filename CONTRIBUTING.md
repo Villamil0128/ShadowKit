@@ -60,8 +60,8 @@ Reglas para el catálogo:
 ## Reporte de bugs y features
 
 Usa las plantillas de issues:
-- [Bug report](https://github.com/Villamil0128/ShadowKit/issues/new?template=bug_report.md)
-- [Feature request](https://github.com/Villamil0128/ShadowKit/issues/new?template=feature_request.md)
+- [Bug report](https://github.com/Villamil0128/ShadowKit/issues/new?template=bug_report.yml)
+- [Feature request](https://github.com/Villamil0128/ShadowKit/issues/new?template=feature_request.yml)
 
 ## Código de conducta
 
