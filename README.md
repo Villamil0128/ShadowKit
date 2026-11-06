@@ -39,6 +39,20 @@ cd ShadowKit
 pip install -r requirements.txt
 ```
 
+### Instalación de un comando
+
+**Windows (PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.ps1 | iex
+```
+
+**Linux / macOS / WSL:**
+```bash
+bash <(curl -sSL "https://raw.githubusercontent.com/Villamil0128/ShadowKit/main/install.sh?v=$(date +%s)")
+```
+
+> El parámetro `?v=$(date +%s)` evita el caché de CDN de GitHub. Si recibes el error `externally-managed-environment`, el instalador crea un venv automáticamente en `~/shadowkit/.venv` (Debian/Parrot/Kali/Ubuntu).
+
 ### Arranque
 
 ```bash
