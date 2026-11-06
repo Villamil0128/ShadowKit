@@ -11,9 +11,10 @@
 
 `buscador en vivo` · `instalador automático` · `46 herramientas` · `windows / linux`
 
-![python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&logo=python&logoColor=white)
+![shadowkit](https://img.shields.io/badge/SHADOWKIT-v2.1-black?style=flat-square)
+![python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)
 ![deps](https://img.shields.io/badge/deps-solo%20rich-black?style=flat-square)
-![platform](https://img.shields.io/badge/platform-windows%20%7C%20linux-informational?style=flat-square)
+![platform](https://img.shields.io/badge/plataforma-windows%20%2F%20linux-informational?style=flat-square)
 ![license](https://img.shields.io/badge/license-MIT-red?style=flat-square)
 
 </div>
