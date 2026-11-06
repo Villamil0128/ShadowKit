@@ -129,8 +129,8 @@ python shadowkit.py -i nmap sqlmap   # instala directo
 
 ## Roadmap
 
-- [ ] configuración de tema (`~/.shadowkit.json`) — issue #4
-- [ ] modo WSL para tools solo-linux — issue #3
+- [ ] configuración de tema (`~/.shadowkit.json`) — issue #3
+- [ ] modo WSL para tools solo-linux — issue #4
 - [ ] httpx y más del pipeline projectdiscovery — issue #2
 - [ ] exportar hallazgos a markdown
 
