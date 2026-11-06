@@ -1,4 +1,4 @@
-name: Bug report
+name: REPORTAR BUG
 description: Reporta un fallo en ShadowKit (carga, búsqueda, instalación...)
 title: "[BUG] "
 labels: ["bug"]
