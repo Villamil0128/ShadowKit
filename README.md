@@ -9,7 +9,7 @@
 
 **arsenal de pentesting en tu terminal**
 
-`buscador en vivo` · `instalador automático` · `46 herramientas` · `windows / linux`
+`buscador en vivo` · `instalador automático` · `55 herramientas` · `windows / linux`
 
 ![shadowkit](https://img.shields.io/badge/SHADOWKIT-v2.1-black?style=flat-square)
 ![python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square)
@@ -63,7 +63,7 @@ python shadowkit.py        # windows: shadowkit.bat
 ```
 ┌──[ shadowkit ]──────────────────────────────────────┐
 │                                                     │
-│  ● instaladas 12/46          ◆ v2.1                 │
+│  ● instaladas 12/55          ◆ v2.1                 │
 │                                                     │
 │  › search█                                          │
 │                                                     │
@@ -102,12 +102,13 @@ Cada ficha te da el contexto completo de la herramienta:
   sherlock    nuclei       sqlmap         john/hashcat
 ```
 
-## Arsenal (46 tools)
+## Arsenal (55 tools)
 
 | Categoría | Herramientas |
 |---|---|
 | escaneo de red | nmap · masscan · ncat |
 | reconocimiento | amass · subfinder · sherlock · theHarvester · enum4linux-ng · shodan · whois |
+| OSINT / filtraciones | maigret · blackbird · holehe · h8mail · ghunt · snscrape · metagoofil · GitDorker · trufflehog |
 | web / apis | sqlmap · nikto · dirsearch · gobuster · ffuf · nuclei · whatweb · wafw00f · wpscan · testssl.sh · wfuzz · burpsuite |
 | explotación | metasploit · msfvenom · searchsploit |
 | post-explotación | netexec · smbmap · responder · proxychains |
@@ -140,7 +141,7 @@ python shadowkit.py -i nmap sqlmap   # instala directo
 ```
 ShadowKit/
 ├── shadowkit.py         lado TUI: animaciones, búsqueda, instalador, ejecutor
-├── tools_registry.py    datos: 46 tools con dossier completo
+├── tools_registry.py    datos: 55 tools con dossier completo
 ├── shadowkit.bat        arranque directo windows
 ├── install.ps1          instalador windows
 ├── install.sh           instalador linux

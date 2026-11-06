@@ -1,6 +1,7 @@
 TOOL_CATEGORIES = [
     "Escaneo de red",
     "Reconocimiento",
+    "OSINT / Filtraciones",
     "Web / APIs",
     "Explotación",
     "Post-explotación",
@@ -962,5 +963,210 @@ TOOLS = [
         "examples": [
             "Usa sus listas con gobuster: -w \"{dir}\\\\SecLists\\\\Discovery\\\\Web-Content\\\\common.txt\"",
         ],
+    },
+    {
+        "name": "maigret",
+        "category": "OSINT / Filtraciones",
+        "desc": "Localiza un nombre de usuario en +3000 sitios: redes sociales, foros, marketplaces y repositorios.",
+        "features": [
+            "Escanea más de 3000 sitios en paralelo, con reporte en HTML/JSON/PDF",
+            "Detección de falsos positivos mejorada frente a sherlock",
+            "Extrae las URLs exactas y datos públicos de cada perfil encontrado",
+        ],
+        "use": "Rastrear un usuario concreto (empleado, alias, sospechoso) por toda la web: el paso 1 del perfilado.",
+        "check": "maigret",
+        "base": "maigret",
+        "install": {
+            "windows": ["pip install maigret"],
+            "linux": ["pip install maigret"],
+        },
+        "examples": [
+            "maigret juanperez",
+            "maigret juanperez --all-sites --html ~/reporte",
+        ],
+    },
+    {
+        "name": "blackbird",
+        "category": "OSINT / Filtraciones",
+        "desc": "Rastreo de usuarios y emails ultra rápido: busca la misma identidad en decenas de sitios y datos de filtraciones.",
+        "features": [
+            "Busca usernames y emails en +200 plataformas",
+            "Resultados con fecha de creación de cuenta estimada",
+            "Interfaz web opcional para navegar los hallazgos",
+        ],
+        "use": "Identidad repetida o email reutilizado: comprobar en segundos dónde más aparece la misma persona.",
+        "check": "blackbird",
+        "base": "blackbird",
+        "install": {
+            "windows": ["pip install git+https://github.com/p0fm4nn/blackbird"],
+            "linux": ["pip install git+https://github.com/p0fm4nn/blackbird"],
+        },
+        "examples": [
+            "blackbird -u juanperez",
+            "blackbird -e juan@empresa.com",
+        ],
+    },
+    {
+        "name": "holehe",
+        "category": "OSINT / Filtraciones",
+        "desc": "Comprueba si un email está registrado en +120 sitios web y adquiría cuentas asociadas a cuáles plataformas.",
+        "features": [
+            "+120 servicios comprobados (redes, apps, tiendas...)",
+            "Solo usa la función de recuperación de las webs: no dispara alarmas",
+            "Salida limpia en texto, CSV o JSON",
+        ],
+        "use": "Dar con el footprint digital de un email corporativo: saber en qué servicios se registró un empleado.",
+        "check": "holehe",
+        "base": "holehe",
+        "install": {
+            "windows": ["pip install holehe"],
+            "linux": ["pip install holehe"],
+        },
+        "examples": [
+            "holehe juan@empresa.com",
+            "holehe test@gmail.com --only-used",
+        ],
+    },
+    {
+        "name": "h8mail",
+        "category": "OSINT / Filtraciones",
+        "desc": "Busca emails, dominios y usuarios en bases de datos de filtraciones: HIBP, BreachDirectory, Hunter y más.",
+        "features": [
+            "Consulta múltiples APIs de brechas con una sola clave o sin ella",
+            "Encuentra por email, dominio completo o usuario",
+            "Soporta targets de archivo y correlación entre brechas",
+        ],
+        "use": "Caso filtraciones: ver si correos de tu dominio están en dumps públicos y en qué brechas aparecieron.",
+        "check": "h8mail",
+        "base": "h8mail",
+        "install": {
+            "windows": ["pip install h8mail"],
+            "linux": ["pip install h8mail"],
+        },
+        "examples": [
+            "h8mail -t juan@empresa.com",
+            "h8mail -t empresa.com",
+            "h8mail -t targets.txt -k HIBP_API_KEY",
+        ],
+        "notes": "Para el dominio completo conviene una API key de HIBP: filtra mejor y evita límites.",
+    },
+    {
+        "name": "ghunt",
+        "category": "OSINT / Filtraciones",
+        "desc": "OSINT sobre una cuenta de Google: foto de perfil, GaiaID, reseñas de Maps y actividad pública asociada al email.",
+        "features": [
+            "Averigua el GaiaID, la foto de perfil y sus descargas",
+            "Reseñas y actividad pública en Google Maps",
+            "Detección de cuentas de YouTube y documentos compartidos vinculados",
+        ],
+        "use": "A partir de un email de Google (ej. empleado o atacante): extraer toda su huella pública de Google.",
+        "check": "ghunt",
+        "base": "ghunt",
+        "install": {
+            "windows": ["pip install ghunt"],
+            "linux": ["pip install ghunt"],
+        },
+        "examples": [
+            "ghunt email juan.imple@gmail.com",
+            "ghunt login",
+        ],
+        "notes": "Requiere autenticarse una vez con una cuenta de Google propia (ghunt login).",
+    },
+    {
+        "name": "snscrape",
+        "category": "OSINT / Filtraciones",
+        "desc": "Scrapea redes sociales (X/Twitter, Instagram, Facebook, Reddit, Telegram...) para extraer posts y perfiles.",
+        "features": [
+            "Soporta decenas de plataformas con un mismo CLI",
+            "Búsqueda por usuario, hashtag, palabra clave o URL",
+            "Exporte a JSON/CSV para cruce con otras fuentes",
+        ],
+        "use": "OSINT de redes: leer qué publica, con quién interactúa y qué expone una cuenta pública sin loguearte.",
+        "check": "snscrape",
+        "base": "snscrape",
+        "install": {
+            "windows": ["pip install snscrape"],
+            "linux": ["pip install snscrape"],
+        },
+        "examples": [
+            "snscrape twitter-user juanperez",
+            "snscrape --jsonl twitter-search 'empresa.com' > tweets.jsonl",
+        ],
+        "notes": "Algunas plataformas (X/Instagram) restringen sin sesión; en Telegram y Reddit funciona pleno.",
+    },
+    {
+        "name": "metagoofil",
+        "category": "OSINT / Filtraciones",
+        "desc": "Descarga documentos públicos (PDF, DOCX, XLSX, PPTX) de un dominio y chupa sus metadatos: autores, servidores, emails, versiones.",
+        "features": [
+            "Busca y descarga docs indexados en Google/Bing del dominio",
+            "Extrae usuarios internos, nombres de host, rutas de Office",
+            "Mapea el software y versiones de la organización",
+        ],
+        "use": "Filtraciones pasivas: ver qué info exponen los ficheros que tu empresa publica en su propia web.",
+        "check": "metagoofil\\metagoofil.py",
+        "base": "\"{py}\" metagoofil.py",
+        "install": {
+            "windows": [
+                "git clone https://github.com/opsdisk/metagoofil.git \"{dir}\\metagoofil\"",
+                "pip install -r \"{dir}\\metagoofil\\requirements.txt\"",
+            ],
+            "linux": [
+                "git clone https://github.com/opsdisk/metagoofil.git \"{dir}/metagoofil\"",
+                "pip install -r \"{dir}/metagoofil/requirements.txt\"",
+            ],
+        },
+        "examples": [
+            "metagoofil -d empresa.com -t pdf,docx,xlsx,pptx -n 20 -o ./docs -f informe.html",
+        ],
+    },
+    {
+        "name": "GitDorker",
+        "category": "OSINT / Filtraciones",
+        "desc": "Búsqueda de secretos e información filtrada en GitHub usando dorks (tokens, credenciales, endpoints, mails del dominio).",
+        "features": [
+            "+25 listas de dorks para GitHub (GHDB y propias)",
+            "Escanea organizaciones, repos y usuarios objetivo",
+            "Detecta tokens, credenciales, endpoints internos y emails del dominio",
+        ],
+        "use": "Ver si empleados subieron (por descuido) credenciales, tokens o código interno de la empresa a GitHub.",
+        "check": "GitDorker\\GitDorker.py",
+        "base": "\"{py}\" GitDorker.py",
+        "install": {
+            "windows": [
+                "git clone https://github.com/obheda12/GitDorker.git \"{dir}\\GitDorker\"",
+                "pip install -r \"{dir}\\GitDorker\\requirements.txt\"",
+            ],
+            "linux": [
+                "git clone https://github.com/obheda12/GitDorker.git \"{dir}/GitDorker\"",
+                "pip install -r \"{dir}/GitDorker/requirements.txt\"",
+            ],
+        },
+        "examples": [
+            "GitDorker.py -t GITHUB_TOKEN -d dorks/medium_dorks.txt -q empresa.com",
+        ],
+        "notes": "Necesita un token personal de GitHub para trabajar a full.",
+    },
+    {
+        "name": "trufflehog",
+        "category": "OSINT / Filtraciones",
+        "desc": "Escanea repos, directorios y commits en busca de secretos filtrados: claves AWS, APIs, contraseñas, tokens.",
+        "features": [
+            "+700 detectores de secretos con validación activa",
+            "Escanea git completo (history incluido), Docker, S3, filesystem",
+            "Alerta cuando la credencial encontrada sigue siendo válida",
+        ],
+        "use": "Auditar tus propios repos y backups: saber si alguna credencial quedó filtrada o sigue viva tras el incidente.",
+        "check": "trufflehog",
+        "base": "trufflehog",
+        "install": {
+            "windows": ["go install github.com/trufflesecurity/trufflehog@latest"],
+            "linux": ["go install github.com/trufflesecurity/trufflehog@latest"],
+        },
+        "examples": [
+            "trufflehog github --org miempresa",
+            "trufflehog filesystem --directory C:\\proyectos\\internos",
+        ],
+        "notes": "Requiere Go instalado.",
     },
 ]
